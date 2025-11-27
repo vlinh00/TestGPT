@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CDE AEC Hub</title>
+  <style>
+    :root {
+      --primary: #0057b8;
+      --secondary: #1fb8a6;
+      --bg: #f5f7fb;
+      --text: #1b2430;
+      --muted: #5b6b7a;
+      --card: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff;
+      padding: 48px 24px 64px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.12), transparent 40%),
+                  radial-gradient(circle at 80% 10%, rgba(255,255,255,0.12), transparent 36%);
+      pointer-events: none;
+    }
+
+    .container {
+      width: min(1200px, 95%);
+      margin: 0 auto;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: #fff;
+      display: grid;
+      place-items: center;
+      color: var(--primary);
+      font-weight: 800;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: #e6f2ff;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 10px;
+      transition: background 0.2s ease;
+      font-weight: 600;
+    }
+
+    .nav-links a:hover {
+      background: rgba(255,255,255,0.12);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      align-items: center;
+      gap: 32px;
+      padding: 48px 0 12px;
+      position: relative;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 4vw, 44px);
+      margin: 0 0 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero p {
+      margin: 0 0 20px;
+      color: #e6f2ff;
+      font-size: 16px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 12px 18px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      border: 2px solid transparent;
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn.primary {
+      background: #fff;
+      color: var(--primary);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.18);
+    }
+
+    .btn.secondary {
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.18);
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .metric-card {
+      background: rgba(255,255,255,0.15);
+      border-radius: 14px;
+      padding: 14px 16px;
+      color: #fff;
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .metric-card strong {
+      display: block;
+      font-size: 22px;
+    }
+
+    .section {
+      padding: 64px 0;
+    }
+
+    .section h2 {
+      font-size: 28px;
+      margin: 0 0 12px;
+    }
+
+    .section p.meta {
+      margin: 0 0 24px;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 20px 60px rgba(10, 47, 96, 0.08);
+      border: 1px solid #e6ecf5;
+      display: grid;
+      gap: 8px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 6px 10px;
+      background: rgba(0, 87, 184, 0.1);
+      color: var(--primary);
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .badge {
+      background: rgba(31, 184, 166, 0.12);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 6px 10px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .roadmap {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .step {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 16px;
+      border: 1px solid #e6ecf5;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .step::before {
+      content: attr(data-step);
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-weight: 700;
+      color: var(--primary);
+      opacity: 0.2;
+      font-size: 48px;
+    }
+
+    .footer {
+      background: #0f1729;
+      color: #d8e3f4;
+      padding: 32px 0;
+      margin-top: 32px;
+    }
+
+    .footer a {
+      color: #9ac8ff;
+      text-decoration: none;
+    }
+
+    @media (max-width: 720px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero {
+        padding-top: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="brand">
+          <div class="logo">CDE</div>
+          <div>CDE Hub cho AEC</div>
+        </div>
+        <div class="nav-links">
+          <a href="#features">Tính năng</a>
+          <a href="#workflow">Quy trình</a>
+          <a href="#standards">Chuẩn</a>
+          <a href="#contact">Liên hệ</a>
+        </div>
+      </nav>
+
+      <div class="hero">
+        <div>
+          <h1>Một điểm tập trung dữ liệu dự án AEC</h1>
+          <p>CDE (Common Data Environment) giúp nhóm thiết kế, thi công và vận hành cộng tác trên một nguồn dữ liệu duy nhất, kiểm soát phiên bản và tuân thủ chuẩn BIM.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#features">Khám phá nền tảng</a>
+            <a class="btn secondary" href="#contact">Nhận tư vấn</a>
+          </div>
+          <div class="metrics">
+            <div class="metric-card">
+              <strong>ISO 19650</strong>
+              <span>Luồng phát hành và kiểm soát tài liệu theo chuẩn.</span>
+            </div>
+            <div class="metric-card">
+              <strong>360°</strong>
+              <span>Từ mô hình BIM, RFIs, Submittal tới dữ liệu vận hành.</span>
+            </div>
+            <div class="metric-card">
+              <strong>Realtime</strong>
+              <span>Truy cập đa thiết bị, phân quyền chi tiết.</span>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.3);">
+          <span class="pill">Bảng điều khiển</span>
+          <h3>Trạng thái dự án</h3>
+          <div class="badge-row">
+            <span class="badge">50+ bản vẽ đã duyệt</span>
+            <span class="badge">12 RFIs đang xử lý</span>
+            <span class="badge">4 gói thầu cập nhật</span>
+          </div>
+          <p style="color: var(--muted);">Theo dõi tiến độ, lịch sử phiên bản và log phê duyệt cho mọi mô hình và tài liệu.</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="features" class="section">
+      <h2>Nền tảng CDE giàu tính năng</h2>
+      <p class="meta">Tối ưu hóa cộng tác giữa tư vấn, nhà thầu, chủ đầu tư và vận hành.</p>
+      <div class="grid">
+        <div class="card">
+          <span class="pill">Mô hình & Bản vẽ</span>
+          <strong>Quản lý phiên bản BIM</strong>
+          <p>Ủy quyền xem/chỉnh sửa mô hình, kết hợp clash detection và kiểm tra QA/QC tự động.</p>
+        </div>
+        <div class="card">
+          <span class="pill">Trao đổi</span>
+          <strong>RFIs & Submittal</strong>
+          <p>Luồng gửi - phản hồi rõ ràng, SLA minh bạch và thông báo realtime tới đúng bên liên quan.</p>
+        </div>
+        <div class="card">
+          <span class="pill">Tài liệu</span>
+          <strong>Kho tài liệu phân quyền</strong>
+          <p>Metadata theo WBS, giai đoạn và đơn vị chịu trách nhiệm; watermark để bảo vệ thông tin.</p>
+        </div>
+        <div class="card">
+          <span class="pill">Trường & IoT</span>
+          <strong>Nhật ký công trường</strong>
+          <p>Ghi nhận tiến độ, sự cố, ảnh hiện trường; tích hợp IoT để đồng bộ dữ liệu vận hành.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="workflow" class="section">
+      <h2>Quy trình phát hành & kiểm soát</h2>
+      <p class="meta">Luồng chuẩn hóa theo ISO 19650 và các quy định địa phương.</p>
+      <div class="roadmap">
+        <div class="step" data-step="01">
+          <strong>Giai đoạn WIP (Work in Progress)</strong>
+          <p>Nhóm kỹ thuật làm việc trên bản nháp, kiểm tra clash và chất lượng trước khi phát hành.</p>
+        </div>
+        <div class="step" data-step="02">
+          <strong>Shared & Review</strong>
+          <p>Chuyển lên khu vực chung để nhận phản hồi, tạo snapshot, gắn thông tin phiên bản.</p>
+        </div>
+        <div class="step" data-step="03">
+          <strong>Published for Construction</strong>
+          <p>Phê duyệt chính thức, cấp mã tài liệu, gắn watermark và phát hành tới các bên thi công.</p>
+        </div>
+        <div class="step" data-step="04">
+          <strong>Archive & As-built</strong>
+          <p>Lưu trữ dài hạn, liên kết dữ liệu bàn giao vận hành (O&M manuals, Asset register).</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="standards" class="section">
+      <h2>Tuân thủ chuẩn & tích hợp</h2>
+      <p class="meta">Đảm bảo dữ liệu liền mạch giữa các công cụ AEC phổ biến.</p>
+      <div class="grid">
+        <div class="card">
+          <strong>IFC / BCF</strong>
+          <p>Hỗ trợ trao đổi mô hình mở, đẩy/nhận BCF issues để liên kết với phần mềm BIM.</p>
+        </div>
+        <div class="card">
+          <strong>API & Webhook</strong>
+          <p>Đồng bộ lịch, tasks, và dữ liệu công trường với ERP, CMMS hoặc PowerBI.</p>
+        </div>
+        <div class="card">
+          <strong>Security by design</strong>
+          <p>SAML/SSO, mã hóa khi truyền và khi lưu, audit log đầy đủ cho mọi thao tác.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <h2>Bắt đầu với CDE của bạn</h2>
+      <p class="meta">Đặt lịch demo hoặc yêu cầu proposal cho dự án sắp tới.</p>
+      <div class="card">
+        <form class="grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+          <label>Họ tên
+            <input required type="text" name="name" placeholder="Nguyễn Văn A" style="width: 100%; padding: 12px 10px; border-radius: 10px; border: 1px solid #d0d8e8;">
+          </label>
+          <label>Email công việc
+            <input required type="email" name="email" placeholder="ban@congty.com" style="width: 100%; padding: 12px 10px; border-radius: 10px; border: 1px solid #d0d8e8;">
+          </label>
+          <label>Tổ chức
+            <input type="text" name="company" placeholder="Tên tổ chức" style="width: 100%; padding: 12px 10px; border-radius: 10px; border: 1px solid #d0d8e8;">
+          </label>
+          <label>Giai đoạn dự án
+            <select name="stage" style="width: 100%; padding: 12px 10px; border-radius: 10px; border: 1px solid #d0d8e8;">
+              <option>Thiết kế</option>
+              <option>Đấu thầu</option>
+              <option>Thi công</option>
+              <option>Vận hành</option>
+            </select>
+          </label>
+          <label style="grid-column: 1 / -1;">
+            Nhu cầu chính
+            <textarea rows="3" name="needs" placeholder="Quản lý mô hình BIM, tích hợp ERP, quản lý Submittal, ..." style="width: 100%; padding: 12px 10px; border-radius: 10px; border: 1px solid #d0d8e8;"></textarea>
+          </label>
+          <div style="grid-column: 1 / -1; display: flex; gap: 10px; align-items: center;">
+            <input type="checkbox" id="updates" name="updates">
+            <label for="updates" style="color: var(--muted);">Nhận cập nhật sản phẩm và case study</label>
+          </div>
+          <button class="btn primary" type="submit" style="justify-content: center; border: none; cursor: pointer;">Gửi yêu cầu</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center;">
+        <div>
+          <strong>CDE Hub</strong> – Không gian dữ liệu chung cho dự án AEC.
+        </div>
+        <div style="display: flex; gap: 12px;">
+          <a href="#">Điều khoản</a>
+          <a href="#">Bảo mật</a>
+          <a href="mailto:contact@cdehub.io">contact@cdehub.io</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
